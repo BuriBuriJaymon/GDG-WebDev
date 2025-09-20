@@ -1,0 +1,279 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500&display=swap');
+
+/* --- DARK MODE Variables (Default) --- */
+:root {
+    --accent-color: #00d9ff;
+    --accent-hover: #9effff;
+    --danger-color: #ff4d88;
+    --text-color: #e0e0e0;
+    --border-color: rgba(0, 217, 255, 0.3);
+    --container-bg: rgba(10, 25, 47, 0.8);
+    --list-item-bg: rgba(255, 255, 255, 0.05);
+    --list-item-hover: rgba(255, 255, 255, 0.1);
+    --completed-text: #8d9aab;
+    --body-bg-color: #010409;
+    --body-bg-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2942&auto=format&fit=crop');
+    --header-shadow: 0 0 10px var(--accent-color);
+}
+
+/* --- LIGHT MODE Variables --- */
+body.light-mode {
+    --accent-color: #2a9d8f;
+    --accent-hover: #52c7b8;
+    --danger-color: #e76f51;
+    --text-color: #264653;
+    --border-color: rgba(42, 157, 143, 0.4);
+    --container-bg: rgba(255, 255, 255, 0.85);
+    --list-item-bg: rgba(42, 157, 143, 0.05);
+    --list-item-hover: rgba(42, 157, 143, 0.15);
+    --completed-text: #8a8a8a;
+    --body-bg-color: #f0f2f5;
+    --body-bg-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?q=80&w=2703&auto=format&fit=crop');
+    --header-shadow: none;
+}
+
+
+/* General Body Styles */
+body {
+    font-family: 'Exo 2', sans-serif;
+    background-color: var(--body-bg-color);
+    background-image: var(--body-bg-image);
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 15px;
+    min-height: 100vh;
+    margin: 0;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* Main App Container */
+.container {
+    background: var(--container-bg);
+    padding: 25px 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 550px;
+    transition: background 0.3s, border 0.3s;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 28px;
+    letter-spacing: 2px;
+    text-shadow: var(--header-shadow);
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+    transition: text-shadow 0.3s;
+}
+
+/* Filters and Actions */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+.filter-btn, #clearCompletedBtn {
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Exo 2', sans-serif;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--accent-hover);
+    color: var(--body-bg-color);
+    border-color: var(--accent-hover);
+}
+
+.filter-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+}
+
+body.light-mode .filter-btn.active {
+    color: white;
+    box-shadow: 0 0 15px rgba(42, 157, 143, 0.5);
+}
+
+#clearCompletedBtn {
+    border: 1px solid var(--danger-color);
+    margin-left: auto;
+}
+
+#clearCompletedBtn:hover {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Task List */
+#task-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 15px;
+    margin-bottom: 10px;
+    background: var(--list-item-bg);
+    border: 1px solid transparent;
+    border-left: 3px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    word-break: break-word;
+    transition: all 0.2s ease;
+}
+
+li:hover {
+    background-color: var(--list-item-hover);
+    border-color: var(--accent-color);
+}
+
+li.completed {
+    opacity: 0.6;
+}
+
+li.completed .task-text {
+    text-decoration: line-through;
+    color: var(--completed-text);
+}
+
+.task-text {
+    flex-grow: 1;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    color: var(--completed-text);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    transition: color 0.2s;
+}
+.task-actions button:hover {
+    color: var(--accent-color);
+}
+
+/* Floating Action Button */
+#fab-add-task {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 36px;
+    line-height: 55px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+    z-index: 1000;
+    transition: all 0.2s ease-in-out;
+}
+
+body.light-mode #fab-add-task {
+    box-shadow: 0 5px 20px rgba(42, 157, 143, 0.5);
+}
+
+#fab-add-task:hover {
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* --- Theme Switcher Styles --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3c3c3c;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "🌙";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 3px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    content: "☀️";
+    transform: translateX(22px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
